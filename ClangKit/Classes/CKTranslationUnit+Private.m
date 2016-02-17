@@ -31,6 +31,8 @@
 
 #import "CKTranslationUnit+Private.h"
 #import "CKIndex.h"
+#import "CKCursor.h"
+#import "CKCursor+Private.h"
 
 @implementation CKTranslationUnit( Private )
 
@@ -131,6 +133,9 @@
             
             return nil;
         }
+        
+        CXCursor cxCursor = clang_getTranslationUnitCursor(_cxTranslationUnit);
+        _cursor = [[CKCursor alloc] initWithCXCursor:cxCursor];
         
         [ self tokens ];
         [ self diagnostics ];

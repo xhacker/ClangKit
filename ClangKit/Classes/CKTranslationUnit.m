@@ -41,6 +41,7 @@
 @synthesize path                = _path;
 @synthesize cxTranslationUnit   = _cxTranslationUnit;
 @synthesize index               = _index;
+@synthesize cursor              = _cursor;
 
 + ( id )translationUnitWithPath: ( NSString * )path
 {

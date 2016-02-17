@@ -37,6 +37,7 @@
  */
 
 @class CKIndex;
+@class CKCursor;
 
 /*!
  * @class           CKTranslationUnit
@@ -50,6 +51,7 @@
     NSString          * _text;
     CXTranslationUnit   _cxTranslationUnit;
     CKIndex           * _index;
+    CKCursor          * _cursor;
     char             ** _args;
     int                 _numArgs;
     NSArray           * _diagnostics;
@@ -82,6 +84,12 @@
  * @abstract        The index object
  */
 @property( atomic, readonly ) CKIndex * index;
+
+/*!
+ * @property        cursor
+ * @abstract        The top-level cursor
+ */
+@property( atomic, readonly ) CKCursor * cursor;
 
 /*!
  * @property        diagnostics
