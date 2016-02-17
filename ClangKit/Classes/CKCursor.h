@@ -1149,6 +1149,8 @@ FOUNDATION_EXPORT CKCursorKind CKCursorKindLastPreprocessing;
  */
 @property( atomic, readonly ) BOOL isUnexposed;
 
+@property (nonatomic, readonly) NSArray *children;
+
 /*!
  * @method          cursorWithLocation:translationUnit:
  * @abstract        Gets a cursor from a location and a translation unit

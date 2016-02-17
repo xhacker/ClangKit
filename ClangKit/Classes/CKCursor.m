@@ -34,6 +34,8 @@
 #import "CKSourceLocation.h"
 #import "CKTranslationUnit.h"
 
+enum CXChildVisitResult cursorVisitor(CXCursor child, CXCursor parent, CXClientData client_data);
+
 CKCursorKind CKCursorKindUnexposedDecl                      = CXCursor_UnexposedDecl;
 CKCursorKind CKCursorKindStructDecl                         = CXCursor_StructDecl;
 CKCursorKind CKCursorKindUnionDecl                          = CXCursor_UnionDecl;
@@ -340,6 +342,27 @@ CKCursorKind CKCursorKindLastPreprocessing                  = CXCursor_LastPrepr
     }
     
     return _semanticParent;
+}
+
+enum CXChildVisitResult cursorVisitor(CXCursor child, CXCursor parent, CXClientData client_data)
+{
+    #pragma unused (parent)
+    
+    NSMutableArray *children = client_data;
+    
+    CKCursor *cursor = [[CKCursor alloc] initWithCXCursor:child];
+    if (!cursor.isPreprocessing) {
+        [children addObject:cursor];
+    }
+    return CXChildVisit_Continue;
+}
+
+- (NSArray *)children
+{
+    NSMutableArray *children = [NSMutableArray array];
+    CXCursor *cursor = _cxCursorPointer;
+    clang_visitChildren(*cursor, *cursorVisitor, children);
+    return children;
 }
 
 @end
